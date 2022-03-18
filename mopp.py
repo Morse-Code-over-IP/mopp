@@ -103,22 +103,13 @@ class mopp():
     def mopp2str (self, packet):
         p = self.decodePacket(packet)
         
-        print (p)
-        #xx= "--."
-        #print (   list(self.morse.keys())   )
-        #print (   list(self.morse.values()).index(xx)    )
-        #print (   list(self.morse.keys())[list(self.morse.values()).index(xx)]   )
-        #list(MORSE_CODE_DICT.keys())[list(MORSE_CODE_DICT
-        #        .values()).index(citext)]
         msg = ""
         for c in p.split(" "):
-            #print (c)
             v = list(self.morse.keys())[list(self.morse.values()).index(c)]
-            #print (v)
             msg += v
 
         print (msg)
-        
+
 m = mopp(wpm=23)
 f=m.str2mopp("Gerolf ok")
 #print(m.str2bit(f))

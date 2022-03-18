@@ -2,8 +2,13 @@
 from math import ceil
 
 class mopp():
-    serial = 1
-    protocol_version = '01'
+    tx_serial = 1
+    tx_protocol_version = '01'
+    tx_wpm = 20
+
+    rx_serial = 1
+    rx_protocol_version = '01'
+    tx_wpm = 20
 
     morse = {
         "0" : "-----", "1" : ".----", "2" : "..---", "3" : "...--", "4" : "....-", "5" : ".....",
@@ -13,23 +18,18 @@ class mopp():
         "o" : "---", "p" : ".--.", "q" : "--.-", "r" : ".-.", "s" : "...", "t" : "-", "u" : "..-",
         "v" : "...-", "w" : ".--", "x" : "-..-", "y" : "-.--", "z" : "--..", "=" : "-...-",
         "/" : "-..-.", "+" : ".-.-.", "-" : "-....-", "." : ".-.-.-", "," : "--..--", "?" : "..--..",
-        ":" : "---...", "!" : "-.-.--", "'" : ".----."
+        ":" : "---...", "!" : "-.-.--", "'" : ".----.",
+        " " : ""
     }
 
     def __init__(self, wpm=20):
-        self.wpm = wpm
+        self.tx_wpm = wpm
 
     def str2mopp(self, str):
-        """
-        Variables: 
-        m - data in 0/1 notation
-        res - data in binary notation
-        """
-
         # Header
-        m = self.protocol_version               
-        m += bin(self.serial)[2:].zfill(6)
-        m += bin(self.wpm)[2:].zfill(6)
+        m = self.tx_protocol_version               
+        m += bin(self.tx_serial)[2:].zfill(6)
+        m += bin(self.tx_wpm)[2:].zfill(6)
 
         # Payload
         for c in str:
@@ -48,7 +48,7 @@ class mopp():
         m = m[0:-2] + '11'	        # final EOW
  
         m = m.ljust(int(8*ceil(len(m)/8.0)),'0') # fill rest with 0
-        self.serial += 1
+        self.tx_serial += 1
         #debug print (m)
 
         return self.bit2str(m)
@@ -75,9 +75,9 @@ class mopp():
         l = len(bits)
 
         # Extract Header
-        protocol_version = bits[0:2]
-        serial = bits[3:8]
-        wpm = int(bits[9:14],2)
+        self.rx_protocol_version = bits[0:2]
+        self.rx_serial = bits[3:8]
+        self.rx_wpm = int(bits[9:14],2)
 
         # Extract payload
         msg = ""
@@ -89,9 +89,10 @@ class mopp():
             elif bits[i:i+2] == "00": # EOC
                 msg += " "
             elif bits[i:i+2] == "11": # EOW
-                msg += " <EOW>  "
+                msg += " "
             
-        print (protocol_version, serial, wpm, msg)
+        #debug print (self.rx_protocol_version, self.rx_serial, self.rx_wpm, msg)
+        return (msg)
 
     def str2hex(self,str):
         return ":".join("{:02x}".format(ord(c)) for c in str)
@@ -99,7 +100,27 @@ class mopp():
     def str2bit(self,str):
         return ":".join("{:08b}".format(ord(c)) for c in str)
 
+    def mopp2str (self, packet):
+        p = self.decodePacket(packet)
+        
+        print (p)
+        #xx= "--."
+        #print (   list(self.morse.keys())   )
+        #print (   list(self.morse.values()).index(xx)    )
+        #print (   list(self.morse.keys())[list(self.morse.values()).index(xx)]   )
+        #list(MORSE_CODE_DICT.keys())[list(MORSE_CODE_DICT
+        #        .values()).index(citext)]
+        msg = ""
+        for c in p.split(" "):
+            #print (c)
+            v = list(self.morse.keys())[list(self.morse.values()).index(c)]
+            #print (v)
+            msg += v
+
+        print (msg)
+        
 m = mopp(wpm=23)
 f=m.str2mopp("Gerolf ok")
 #print(m.str2bit(f))
-m.decodePacket(f)
+#m.decodePacket(f)
+m.mopp2str(f)

@@ -22,6 +22,8 @@ class ChatClient:
         m2 = self.m.mopp2str(mm)
         print (self.m.rx_serial, self.m.rx_wpm, m1, m2)
 
-c = ChatClient()
+#c = ChatClient()
+c = ChatClient(ip="49.12.102.144")
 c.send_receive("hi")
+c.send_receive("hello")
 c.send_receive("bye")

@@ -18,7 +18,9 @@ class mopp():
         "o" : "---", "p" : ".--.", "q" : "--.-", "r" : ".-.", "s" : "...", "t" : "-", "u" : "..-",
         "v" : "...-", "w" : ".--", "x" : "-..-", "y" : "-.--", "z" : "--..", "=" : "-...-",
         "/" : "-..-.", "+" : ".-.-.", "-" : "-....-", "." : ".-.-.-", "," : "--..--", "?" : "..--..",
-        ":" : "---...", "!" : "-.-.--", "'" : ".----.",
+        ":" : "---...", "!" : "-.-.--", "'" : ".----.", ";" : "-.-.-.", "&" : ".-...", "@" : ".--.-.",
+        "ä" : ".-.-", "ö" : "---.", "ü" : "..--", "ch" : "----", '"' : ".-..-.", "(" : "-.--.", ")" : "-.--.-",
+        "<sk>" : "...-.-", "<bk>" : "-...-.-",
         " " : "" # for eow spacing
     }
 
@@ -103,15 +105,27 @@ class mopp():
     def mopp2str (self, packet):
         p = self.decodePacket(packet)
         
+        klist = list(self.morse.keys())
+        vlist = list(self.morse.values())
+
         msg = ""
         for c in p.split(" "):
+            #thing_index = thing_list.index(elem) if elem in thing_list else -1
+            #v = "*"
+            #if c in vlist:
+            #    v = klist[vlist.index(c)]
             v = list(self.morse.keys())[list(self.morse.values()).index(c)]
             msg += v
 
         print (msg)
 
-m = mopp(wpm=23)
-f=m.str2mopp("Gerolf ok")
+
+#m = mopp(wpm=23)
+#f=m.str2mopp("Gerolf ok")
 #print(m.str2bit(f))
 #m.decodePacket(f)
-m.mopp2str(f)
+#m.mopp2str(f)
+
+
+# FIXME: utf8 encoding
+# TODO: merge with sigbit code

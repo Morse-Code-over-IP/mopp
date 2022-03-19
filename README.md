@@ -1,4 +1,16 @@
 # Morse Code Over Packet Protocol (MOPP)
+This repository provides libraries for using the MOPP protocol.
+
+## Python Library
+** WIP **
+
+### Testing the MOPP chat server
++ Ref: https://github.com/Morse-Code-over-IP/sigbit
++ `python3 ./test_chat_server.py`
+
+## Javascript Library
+** TODO **
+
 
 ## Protocol Description
 

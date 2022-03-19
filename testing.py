@@ -17,15 +17,11 @@ UDPClientSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 UDPClientSocket.sendto(bytesToSend, serverAddressPort)
 msgFromServer = UDPClientSocket.recvfrom(bufferSize)
 mm = msgFromServer[0].decode("utf-8", errors='ignore')
-#msg = "Message from Server {}".format(msgFromServer[0])
-#print(msg)
+
 
 print (mm)
 m1 = m.decodePacket(mm)
 print (m1)
 print (m.rx_wpm)
-
 m1 = m.mopp2str(mm)
 print (m1)
-
-

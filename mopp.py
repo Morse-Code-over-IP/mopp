@@ -117,7 +117,8 @@ class mopp():
             v = list(self.morse.keys())[list(self.morse.values()).index(c)]
             msg += v
 
-        print (msg)
+        # debug print (msg)
+        return (msg)
 
 
 #m = mopp(wpm=23)

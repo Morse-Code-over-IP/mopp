@@ -92,5 +92,5 @@ Obviously, as Morse code uses variable character lengths, this cannot be  a rule
 
 
 # References
-- Morserino
+- https://github.com/oe1wkl/Morserino-32
 - https://extendsclass.com/python-to-javascript.html

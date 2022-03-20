@@ -9,6 +9,14 @@ function dec2bin(dec) { // Ref: https://stackoverflow.com/questions/9939760/how-
   return b;
 }
 
+String.prototype.leftJustify = function( length, char ) { // Ref: https://gist.github.com/biesiad/889139
+  var fill = [];
+  while ( fill.length + this.length < length ) {
+    fill[fill.length] = char;
+  }
+  return fill.join('') + this;
+}
+
 
 class mopp {
   constructor(wpm = 20) {
@@ -106,7 +114,7 @@ class mopp {
     }
 
     m = m.slice(0, -2) + "11";
-    //m = m.ljust(Number.parseInt(8 * Math.ceil(m.length / 8.0)), "0");
+    m = m.leftJustify(Number.parseInt(8 * Math.ceil(m.length / 8.0)), "0");
     this.tx_serial += 1;
     return this.bit2str(m);
   }

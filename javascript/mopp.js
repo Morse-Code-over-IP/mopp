@@ -1,37 +1,14 @@
-var _pj;
-
-function _pj_snippets(container) {
-  function set_properties(cls, props) {
-    var desc, value;
-    var _pj_a = props;
-
-    for (var p in _pj_a) {
-      if (_pj_a.hasOwnProperty(p)) {
-        value = props[p];
-
-        if (!(value instanceof Map || value instanceof WeakMap) && value instanceof Object && "get" in value && value.get instanceof Function) {
-          desc = value;
-        } else {
-          desc = {
-            "value": value,
-            "enumerable": false,
-            "configurable": true,
-            "writable": true
-          };
-        }
-
-        Object.defineProperty(cls.prototype, p, desc);
-      }
-    }
-  }
-
-  container["set_properties"] = set_properties;
-  return container;
+function pad(num, size) { // Ref: https://stackoverflow.com/questions/2998784/how-to-output-numbers-with-leading-zeros-in-javascript
+  var s = "000000" + num;
+  return s.substr(s.length-size);
 }
 
-_pj = {};
+function dec2bin(dec) { // Ref: https://stackoverflow.com/questions/9939760/how-do-i-convert-an-integer-to-binary-in-javascript
+  a = (dec >>> 0).toString(2);
+  b = pad(a, 6);
+  return b;
+}
 
-_pj_snippets(_pj);
 
 class mopp {
   constructor(wpm = 20) {
@@ -41,8 +18,8 @@ class mopp {
   str2mopp(str) {
     var m;
     m = this.tx_protocol_version;
-    m += bin(this.tx_serial).slice(2).zfill(6);
-    m += bin(this.tx_wpm).slice(2).zfill(6);
+    m += dec2bin(this.tx_serial);
+    m += dec2bin(this.tx_wpm);
 
     for (var c, _pj_c = 0, _pj_a = str, _pj_b = _pj_a.length; _pj_c < _pj_b; _pj_c += 1) {
       c = _pj_a[_pj_c];
@@ -135,6 +112,7 @@ class mopp {
 
 }
 
+/*
 _pj.set_properties(mopp, {
   "morse": {
     "0": "-----",
@@ -204,3 +182,5 @@ _pj.set_properties(mopp, {
   "tx_wpm": 20,
   "tx_wpm": 20
 });
+
+*/

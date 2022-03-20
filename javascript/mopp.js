@@ -14,6 +14,7 @@ class mopp {
   constructor(wpm = 20) {
     this.tx_wpm = wpm;
     this.tx_serial = 1;
+    this.tx_protocol_version = 1;
     this.morse = {
       "0": "-----",
       "1": ".----",

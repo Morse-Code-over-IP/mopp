@@ -51,7 +51,7 @@ class mopp():
  
         m = m.ljust(int(8*ceil(len(m)/8.0)),'0') # fill rest with 0
         self.tx_serial += 1
-        #debug print (m)
+        print (m)
 
         return self.bit2str(m)
 

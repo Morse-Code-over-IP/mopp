@@ -13,6 +13,7 @@ function dec2bin(dec) { // Ref: https://stackoverflow.com/questions/9939760/how-
 class mopp {
   constructor(wpm = 20) {
     this.tx_wpm = wpm;
+    this.tx_serial = 1;
     this.morse = {
       "0": "-----",
       "1": ".----",
